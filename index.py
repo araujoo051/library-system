@@ -8,6 +8,18 @@ class Livros():
         self.ano = ano
         self.valor = valor
         self.estoque = estoque
+        
+    def cadastroLivro(self):
+        titulo = input("Digite o título do livro: ")
+        codigo = input("Digite o código do livro: ")
+        editora = input("Digite a editora do livro: ")
+        area = input("Digite a área do livro: ")
+        ano = int(input("Digite o ano do livro: "))
+        valor = float(input("Digite o valor do livro: "))
+        estoque = int(input("Digite a quantidade em estoque: "))
+        livro = Livros(titulo, codigo, editora, area, ano, valor, estoque)
+        livros.append(livro)
+        print("Livro cadastrado com sucesso!")
      
 if __name__ == "__main__":
     
@@ -35,22 +47,28 @@ if __name__ == "__main__":
     #Validação das opções do Menu
         
         if n == 1:
-            titulo = input("Digite o título do livro: ")
-            codigo = input("Digite o código do livro: ")
-            editora = input("Digite a editora do livro: ")
-            area = input("Digite a área do livro: ")
-            ano = int(input("Digite o ano do livro: "))
-            valor = float(input("Digite o valor do livro: "))
-            estoque = int(input("Digite a quantidade em estoque: "))
-            livro = Livros(titulo, codigo, editora, area, ano, valor, estoque)
-            livros.append(livro)
-            print("Livro cadastrado com sucesso!")
-            
+            livro = Livros("", "", "", "", 0, 0.0, 0)
+            livro.cadastroLivro()     
         elif n == 2:
             print("Lista de Livros:")
             for livro in livros:    
                 print("Título: ", livro.titulo)
                 
+        elif n == 3:
+            nome_busca = input("Digite o nome do livro: ").lower()
+            encontrado = False
+
+            for livro in livros:
+                if nome_busca in livro.titulo.lower(): 
+                    print(f"\nLivro encontrado:")
+                    print(f"Título: {livro.titulo}, Código: {livro.codigo}, Editora: {livro.editora}, "
+                        f"Área: {livro.area}, Ano: {livro.ano}, Valor: R${livro.valor:.2f}, Estoque: {livro.estoque}")
+                    encontrado = True
+
+        if not encontrado:
+            print("Livro não encontrado")
+            
+
         validar = input("Deseja continuar? (s/n)")
         if validar == "n":
             break
