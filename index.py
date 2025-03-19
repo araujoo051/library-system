@@ -59,7 +59,7 @@ class Livros():
         encontrado = False
 
         for livro in livros:
-            if preco_busca < livro.valor: 
+            if preco_busca <= livro.valor: 
                 print(f"\nLivro encontrado:")
                 print(f"Título: {livro.titulo}, Código: {livro.codigo}, Editora: {livro.editora}, "
                     f"Área: {livro.area}, Ano: {livro.ano}, Valor: R${livro.valor:.2f}, Estoque: {livro.estoque}")
@@ -68,6 +68,7 @@ class Livros():
         if not encontrado:
             print("Livro não encontrado")
 
+#Busca por quantidade total no estoque
     def buscarLivroPorEstoque(self):
         estoque_busca = int(input("Digite a quantidade em estoque: "))
         encontrado = False
@@ -82,11 +83,17 @@ class Livros():
         if not encontrado:
             print("Livro não encontrado")
 
+#Busca por valor total no estoque
     def valorTotalEstoque(self):
         total = 0
+        valor_busca = float(input("Qual valor total de estoque deseja buscar?"))
+        encontrado = False
+
         for livro in livros:
-            total += livro.valor * livro.estoque
-        print(f"O valor total do estoque é de R${total:.2f}")
+            total = livro.valor * livro.estoque
+            if valor_busca < total:
+                print(f"\nLivro encontrado:")
+                print(f"Código: {livro.codigo}, Título: {livro.titulo}, Editora: {livro.editora}, ")
      
 if __name__ == "__main__":
     
@@ -94,7 +101,7 @@ if __name__ == "__main__":
     
     livros = [
     Livros("Compiladores", "Cod#0301", "Pearson", "Computação", 2016, 85.00, 125),
-    Livros("Engenharia de Software", "Cod#1203", "Pressman", "Computação", 2011, 78.00, 100)
+    Livros("Engenharia de Software", "Cod#1203", "Pressman", "Computação", 2011, 78.00, 50)
     ]
     
     #Menu de entrada
