@@ -1,4 +1,3 @@
-   
 class Livros():
     def __init__(self, titulo, codigo, editora, area, ano, valor, estoque):
         self.titulo = titulo
@@ -39,6 +38,55 @@ class Livros():
 
         if not encontrado:
             print("Livro não encontrado")
+    
+    
+    def buscarLivroPorCat(self):
+        categoria_busca = input("Digite a categoria do livro: ").lower()
+        encontrado = False
+
+        for livro in livros:
+            if categoria_busca in livro.area.lower(): 
+                print(f"\nLivro encontrado:")
+                print(f"Título: {livro.titulo}, Código: {livro.codigo}, Editora: {livro.editora}, "
+                    f"Área: {livro.area}, Ano: {livro.ano}, Valor: R${livro.valor:.2f}, Estoque: {livro.estoque}")
+                encontrado = True
+
+        if not encontrado:
+            print("Livro não encontrado")
+# Busca por preço, necessário modificar para aparecer os livros com o preço menor ou igual que o digitado
+    def buscarLivroPorPreco(self):
+        preco_busca = float(input("Digite o preço do livro: "))
+        encontrado = False
+
+        for livro in livros:
+            if preco_busca < livro.valor: 
+                print(f"\nLivro encontrado:")
+                print(f"Título: {livro.titulo}, Código: {livro.codigo}, Editora: {livro.editora}, "
+                    f"Área: {livro.area}, Ano: {livro.ano}, Valor: R${livro.valor:.2f}, Estoque: {livro.estoque}")
+                encontrado = True
+        
+        if not encontrado:
+            print("Livro não encontrado")
+
+    def buscarLivroPorEstoque(self):
+        estoque_busca = int(input("Digite a quantidade em estoque: "))
+        encontrado = False
+
+        for livro in livros:
+            if estoque_busca <= livro.estoque: 
+                print(f"\nLivro encontrado:")
+                print(f"Título: {livro.titulo}, Código: {livro.codigo}, Editora: {livro.editora}, "
+                    f"Área: {livro.area}, Ano: {livro.ano}, Valor: R${livro.valor:.2f}, Estoque: {livro.estoque}")
+                encontrado = True
+        
+        if not encontrado:
+            print("Livro não encontrado")
+
+    def valorTotalEstoque(self):
+        total = 0
+        for livro in livros:
+            total += livro.valor * livro.estoque
+        print(f"O valor total do estoque é de R${total:.2f}")
      
 if __name__ == "__main__":
     
@@ -74,10 +122,21 @@ if __name__ == "__main__":
         elif n == 3:
             livro = Livros("", "", "", "", 0, 0.0, 0)
             livro.buscarLivroPorNome()
-
-        #elif n == 4:
-            
-            
+        elif n == 4:
+            livro= Livros("", "", "", "", 0, 0.0, 0)
+            livro.buscarLivroPorCat()
+        elif n == 5:
+            livro = Livros("", "", "", "", 0, 0.0, 0)
+            livro.buscarLivroPorPreco()
+        elif n == 6:
+            livro = Livros("", "", "", "", 0, 0.0, 0)
+            livro.buscarLivroPorEstoque()
+        elif n == 7:
+            livro = Livros("", "", "", "", 0, 0.0, 0)
+            livro.valorTotalEstoque()
+        elif n == 0:
+            print("Programa encerrado!")
+            break  
         validar = input("Deseja continuar? (s/n)")
         if validar == "n":
             break
