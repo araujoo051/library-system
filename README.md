@@ -42,4 +42,4 @@ Follow the menu options to manage books.
 
 If you have any questions or suggestions, feel free to reach out!
 
-✅ Developed by [Your Name]
+✅ Developed by [Araujo]
