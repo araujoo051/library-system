@@ -65,11 +65,11 @@ class Livraria():
         if not encontrado:
             print("Livro não encontrado!")
 
-    def valorEstoque (self):
+    def valorTotalEstoque (self):
         valorTotal = 0
         for livro in self.livro:
             valorTotal += livro.valor * livro.estoque
-            print(f"Valor total em estoque: R$ {valorTotal}")
+        print(f"Valor total em estoque: R$ {valorTotal}")
 
 if __name__ == "__main__":
     livraria = Livraria()
@@ -96,7 +96,9 @@ if __name__ == "__main__":
         elif n == 5:
             livraria.buscarPreco()
         elif n == 6:
-            livraria.valorEstoque()
+            livraria.buscarEstoque()
+        elif n == 7:
+            livraria.valorTotalEstoque()
         elif n == 0:
             print("Programa encerrado!")
             break
