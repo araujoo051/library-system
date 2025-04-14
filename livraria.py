@@ -3,11 +3,11 @@ from livros import Livro
 class Livraria():
     def __init__ (self):
         self.livro = [
-            Livro("Python para Zumbis", 1, "Editora3", "Programação", 2015, 50.00, 10),
-            Livro("Python Fluente", 2, "Editora2", "Programação", 2015, 80.00, 5),
-            Livro("Inteligência Artificial", 3, "Editora1", "IA", 2018, 100.00, 3),
-            Livro("Aprendizado de Máquina", 4, "Editora1", "IA", 2019, 120.00, 2),
-            Livro("Deep Learning", 5, "Editora1", "IA", 2020, 150.00, 1)
+            Livro(9853, "Python para Zumbis", 2015, "Programação", "Editora3", 50.00, 10),
+            Livro(2732, "Python Fluente", 2015, "Programação", "Editora2", 80.00, 5),
+            Livro(32356, "Inteligência Artificial", 2018, "IA", "Editora1", 100.00, 3),
+            Livro(4666, "Aprendizado de Máquina", 2019, "IA", "Editora1", 120.00, 2),
+            Livro(51094, "Deep Learning", 2020, "IA", "Editora1", 150.00, 1)
         ]
 
     def cadastroLivros(self):
@@ -71,6 +71,30 @@ class Livraria():
             valorTotal += livro.valor * livro.estoque
         print(f"Valor total em estoque: R$ {valorTotal}")
 
+    def carregarEstoque(self, arquivo="estoque.txt"):
+        try:
+            with open (arquivo, "r") as storage:
+                for linha in storage:
+                    dados = linha.strip().split(",")
+                    codigo = int(dados[0])
+                    titulo = dados[1]
+                    ano = int(dados[2])
+                    area = dados[3]
+                    editora = dados[4]
+                    valor = float(dados[5])
+                    estoque = int(dados[6])
+                    self.livro.append(Livro(titulo, codigo, editora, area, ano, valor, estoque))
+            print("Estoque carregado com sucesso!")                        
+        except FileNotFoundError:
+            print("Arquivo não encontrado!")
+
+    def atualizarEstoque(self, arquivo="estoque.txt"):
+        with open(arquivo, "w") as storage:
+            for l in self.livro:
+                linha = f"{l.codigo},{l.titulo},{l.ano},{l.area},{l.editora},{l.valor},{l.estoque}\n"
+                storage.write(linha)
+        print("Estoque atualizado com sucesso!")        
+
 if __name__ == "__main__":
     livraria = Livraria()
     n = 1
@@ -82,6 +106,8 @@ if __name__ == "__main__":
               "5 - Buscar por Preço\n"
               "6 - Buscar por Estoque\n"
               "7 - Valor total em Estoque\n"
+              "8 - Carregar Estoque\n"
+              "9 - Atualizar Estoque\n"
               "0 - Sair")
         n = int(input("Escolha uma opção: "))
 
@@ -99,6 +125,10 @@ if __name__ == "__main__":
             livraria.buscarEstoque()
         elif n == 7:
             livraria.valorTotalEstoque()
+        elif n == 8:
+            livraria.carregarEstoque()
+        elif n == 9:
+            livraria.atualizarEstoque()
         elif n == 0:
             print("Programa encerrado!")
             break
@@ -106,9 +136,3 @@ if __name__ == "__main__":
         if validar == "n":
             print("Programa encerrado!")
             break
-        
-    
-
-        
-
-

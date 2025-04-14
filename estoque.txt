@@ -1,0 +1,5 @@
+9853,Python para Zumbis,2015,Programação,Editora3,50.0,10
+2732,Python Fluente,2015,Programação,Editora2,80.0,5
+32356,Inteligência Artificial,2018,IA,Editora1,100.0,3
+4666,Aprendizado de Máquina,2019,IA,Editora1,120.0,2
+51094,Deep Learning,2020,IA,Editora1,150.0,1

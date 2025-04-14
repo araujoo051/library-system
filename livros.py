@@ -1,10 +1,10 @@
 class Livro():
-    def __init__ (self, titulo, codigo, editora, area, ano, valor, estoque):
-        self.titulo = titulo
+    def __init__ (self, codigo, titulo, ano, area, editora, valor, estoque):
         self.codigo = codigo
-        self.editora = editora
-        self.area = area
+        self.titulo = titulo
         self.ano = ano
+        self.area = area
+        self.editora = editora
         self.valor = valor
         self.estoque = estoque
 
@@ -12,8 +12,9 @@ class Livro():
         valorTotalEstoque = self.valor * self.estoque
         return (f">>>>>Cod# {self.codigo}\n"
                 f"Titulo/Editora: {self.titulo}/{self.editora}\n"
-                f"Categoria: {self.area}\n"
                 f"Ano: {self.ano}\n"
+                f"Area: {self.area}\n"
+                f"Editora: R$ {self.editora}\n"
                 f"Valor: R$ {self.valor}\n"
                 f"Estoque: {self.estoque}\n"
                 f"Valor Total em estoque: R$ {valorTotalEstoque}\n"
