@@ -99,24 +99,39 @@ class Livraria():
                 storage.write(linha)
         print("Estoque atualizado com sucesso!")
         
+    def listarPorFilial(self, numero_filial):
+        for livro in self.livros:
+            if str(livro.filial) == str(numero_filial):
+                print(livro)
+        
     #FILIAL
+class gerenciarFiliais():
+    
+    def __init__(self):
+        self.filiais = []
     
     def cadastrarFilial(self):
-        self.codigo = int(input("Codigo: "))
+        self.numero = int(input("Codigo: "))
         self.nome = input("Nome: ")
         self.endereco = input("Endereco: ")
         self.contato = input("Contato: ")
         self.estoque = int(input("Estoque: "))
+        
+        nova_filial = Filial(self.numero, self.nome, self.endereco, self.contato, self.estoque)
+        self.filiais.append(nova_filial)
         print("Filial cadastrada com sucesso!")
-    
+        
+        
     def listarFiliais(self):
-        for livro in self.livro:
-            print(livro)
+        for filial in self.filiais:
+            print(filial)
+            
+    #SUBIR AS FILIAIS AO TXT    
             
     def atualizarFilial(self, arquivo="filiais.txt"):
         with open(arquivo, "w") as storage:
-            for l in self.livro:
-                linha = f"{l.codigo},{l.nome},{l.endereco},{l.contato},{l.estoque}\n"
+            for l in self.filiais:
+                linha = f"{l.numero},{l.nome},{l.endereco},{l.contato},{l.estoque}\n"
                 storage.write(linha)
         print("Filiais atualizadas com sucesso!")
         
@@ -124,18 +139,17 @@ class Livraria():
         with open (arquivo, "r") as storage:
             for linha in storage:
                 dados = linha.strip().split(",")
-                codigo = int(dados[0])
+                numero = int(dados[0])
                 nome = dados[1]
                 endereco = dados[2]
                 contato = dados[3]
                 estoque = int(dados[4])
-                self.livro.append(Livro(codigo, nome, endereco, contato, estoque))
-
+                self.filiais.append(Filial(numero, nome, endereco, contato, estoque))
+        print("Você subiu as filiais com sucesso!")
     
-
-
 if __name__ == "__main__":
     livraria = Livraria()
+    gFilialis = gerenciarFiliais()
     n = 1
     while n != 0:
         print("1 - Cadastrar Livros\n"
@@ -147,6 +161,10 @@ if __name__ == "__main__":
               "7 - Valor total em Estoque\n"
               "8 - Carregar Estoque\n"
               "9 - Atualizar Estoque\n"
+              "10 - Cadastrar Filial\n"
+              "11 - Listar Filiais\n"
+              "12 - Carregar Filiais\n"
+              "13 - Atualizar Filiais\n"
               "0 - Sair")
         n = int(input("Escolha uma opção: "))
 
@@ -168,6 +186,14 @@ if __name__ == "__main__":
             livraria.carregarEstoque()
         elif n == 9:
             livraria.atualizarEstoque()
+        elif n == 10:
+            gFilialis.cadastrarFilial()
+        elif n == 11:
+            gFilialis.listarFiliais()
+        elif n == 12:
+            gFilialis.carregarFiliais()
+        elif n == 13:
+            gFilialis.atualizarFilial()
         elif n == 0:
             print("Programa encerrado!")
             break

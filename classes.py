@@ -7,7 +7,7 @@ class Filial():
         self.estoque = estoque
         
     def __str__(self):
-        return (f">>>>>Cod# {self.codigo}\n"
+        return (f">>>>>Cod# {self.numero}\n"
                 f"Nome: {self.nome}\n"
                 f"Endereco: {self.endereco}\n"
                 f"Contato: {self.contato}\n"
@@ -15,8 +15,7 @@ class Filial():
                 f"===============================")
 
 class Livro():
-    def __init__ (self, codigo, titulo, ano, area, editora, valor, estoque):
-        super().__init__()
+    def __init__ (self, codigo, titulo, ano, area, editora, valor, estoque, filial):
         self.codigo = codigo
         self.titulo = titulo
         self.ano = ano
@@ -24,6 +23,7 @@ class Livro():
         self.editora = editora
         self.valor = valor
         self.estoque = estoque
+        self.filial = filial
 
     def __str__ (self):
         valorTotalEstoque = self.valor * self.estoque
@@ -34,7 +34,7 @@ class Livro():
                 f"Editora: R$ {self.editora}\n"
                 f"Valor: R$ {self.valor}\n"
                 f"Estoque: {self.estoque}\n"
-                f"Filial: {self.filial}\n"
+                f"Filial: {self.filial.nome}\n"
                 f"Valor Total em estoque: R$ {valorTotalEstoque}\n"
                 f"===============================")
         
