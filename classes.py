@@ -34,7 +34,7 @@ class Livro():
                 f"Editora: R$ {self.editora}\n"
                 f"Valor: R$ {self.valor}\n"
                 f"Estoque: {self.estoque}\n"
-                f"Filial: {self.filial.nome}\n"
+                f"Filial: {self.filial.numero}\n"
                 f"Valor Total em estoque: R$ {valorTotalEstoque}\n"
                 f"===============================")
         
