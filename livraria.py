@@ -1,24 +1,27 @@
-from livros import Livro
+from classes import Livro
+from classes import Filial
+
 
 class Livraria():
     def __init__ (self):
         self.livro = [
-            Livro(9853, "Python para Zumbis", 2015, "Programação", "Editora3", 50.00, 10),
-            Livro(2732, "Python Fluente", 2015, "Programação", "Editora2", 80.00, 5),
-            Livro(32356, "Inteligência Artificial", 2018, "IA", "Editora1", 100.00, 3),
-            Livro(4666, "Aprendizado de Máquina", 2019, "IA", "Editora1", 120.00, 2),
-            Livro(51094, "Deep Learning", 2020, "IA", "Editora1", 150.00, 1)
+            Livro(9853, "Python para Zumbis", 2015, "Programação", "Editora3", 50.00, 10, 337),
+            Livro(2732, "Python Fluente", 2015, "Programação", "Editora2", 80.00, 5, 521),
+            Livro(32356, "Inteligência Artificial", 2018, "IA", "Editora1", 100.00, 3, 866),
+            Livro(4666, "Aprendizado de Máquina", 2019, "IA", "Editora1", 120.00, 2, 227),
+            Livro(51094, "Deep Learning", 2020, "IA", "Editora1", 150.00, 1, 157)
         ]
 
     def cadastroLivros(self):
-        self.titulo = input("Titulo: ")
         self.codigo = int(input("Codigo: "))
-        self.editora = input("Editora: ")
-        self.area = input("Area: ")
+        self.titulo = input("Titulo: ")
         self.ano = int(input("Ano: "))
+        self.area = input("Area: ")
+        self.editora = input("Editora: ")
         self.valor = float(input("Valor: "))
         self.estoque = int(input("Estoque: "))
-        self.livro.append(Livro(self.titulo, self.codigo, self.editora, self.area, self.ano, self.valor, self.estoque))
+        self.filial = input("Filial: ")
+        self.livro.append(Livro(self.codigo, self.titulo, self.ano, self.area, self.editora, self.valor, self.estoque, self.filial))
         print("Livro cadastrado com sucesso!")
 
     def listarLivros (self):
@@ -83,7 +86,8 @@ class Livraria():
                     editora = dados[4]
                     valor = float(dados[5])
                     estoque = int(dados[6])
-                    self.livro.append(Livro(titulo, codigo, editora, area, ano, valor, estoque))
+                    filial = dados[7]
+                    self.livro.append(Livro(codigo, titulo, ano, area, editora, valor, estoque, filial))
             print("Estoque carregado com sucesso!")                        
         except FileNotFoundError:
             print("Arquivo não encontrado!")
@@ -91,9 +95,44 @@ class Livraria():
     def atualizarEstoque(self, arquivo="estoque.txt"):
         with open(arquivo, "w") as storage:
             for l in self.livro:
-                linha = f"{l.codigo},{l.titulo},{l.ano},{l.area},{l.editora},{l.valor},{l.estoque}\n"
+                linha = f"{l.codigo},{l.titulo},{l.ano},{l.area},{l.editora},{l.valor},{l.estoque},{l.filial}\n"
                 storage.write(linha)
-        print("Estoque atualizado com sucesso!")        
+        print("Estoque atualizado com sucesso!")
+        
+    #FILIAL
+    
+    def cadastrarFilial(self):
+        self.codigo = int(input("Codigo: "))
+        self.nome = input("Nome: ")
+        self.endereco = input("Endereco: ")
+        self.contato = input("Contato: ")
+        self.estoque = int(input("Estoque: "))
+        print("Filial cadastrada com sucesso!")
+    
+    def listarFiliais(self):
+        for livro in self.livro:
+            print(livro)
+            
+    def atualizarFilial(self, arquivo="filiais.txt"):
+        with open(arquivo, "w") as storage:
+            for l in self.livro:
+                linha = f"{l.codigo},{l.nome},{l.endereco},{l.contato},{l.estoque}\n"
+                storage.write(linha)
+        print("Filiais atualizadas com sucesso!")
+        
+    def carregarFiliais(self, arquivo="filiais.txt"):
+        with open (arquivo, "r") as storage:
+            for linha in storage:
+                dados = linha.strip().split(",")
+                codigo = int(dados[0])
+                nome = dados[1]
+                endereco = dados[2]
+                contato = dados[3]
+                estoque = int(dados[4])
+                self.livro.append(Livro(codigo, nome, endereco, contato, estoque))
+
+    
+
 
 if __name__ == "__main__":
     livraria = Livraria()
