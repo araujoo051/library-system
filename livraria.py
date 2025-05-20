@@ -4,33 +4,24 @@ from classes import Filial
 
 class Livraria():
     def __init__ (self):
-        self.livro = [
-            Livro(9853, "Python para Zumbis", 2015, "Programação", "Editora3", 50.00, 10, 337),
-            Livro(2732, "Python Fluente", 2015, "Programação", "Editora2", 80.00, 5, 521),
-            Livro(32356, "Inteligência Artificial", 2018, "IA", "Editora1", 100.00, 3, 866),
-            Livro(4666, "Aprendizado de Máquina", 2019, "IA", "Editora1", 120.00, 2, 227),
-            Livro(51094, "Deep Learning", 2020, "IA", "Editora1", 150.00, 1, 157)
-        ]
-
-    def cadastroLivros(self):
-        try:    
-            codigo = int(input("Codigo: "))
-            titulo = input("Titulo: ")
-            ano = int(input("Ano: "))
-            area = input("Area: ")
-            editora = input("Editora: ")
-            valor = float(input("Valor: "))
-            estoque = int(input("Estoque: "))
-            numero_filial = int(input("Qual o número da filial?"))
-            fi = next((f for f in self.filiais if f.numero == self.filial), None)
-            if fi is not None:
-                novo_livro = Livro(codigo, titulo, ano, area, editora, valor, estoque, numero_filial)
-                self.livro.append(novo_livro)
-                print("Livro cadastrado com sucesso!")
-            else:
-                print(f"Erro: Filial com número {numero_filial} não encontrada. Cadastro do livro cancelado.")
-        except ValueError:
-            print("Erro: Entrada inválida. Certifique-se de digitar os dados corretamente.")    
+        self.filiais = []
+        
+    def cadastroLivros(self):  
+        codigo = int(input("Codigo: "))
+        titulo = input("Titulo: ")
+        ano = int(input("Ano: "))
+        area = input("Area: ")
+        editora = input("Editora: ")
+        valor = float(input("Valor: "))
+        estoque = int(input("Estoque: "))
+        livro = Livro(codigo, titulo, ano, area, editora, valor, estoque)
+        numero_filial = int(input("Qual o número da filial?"))
+        filial = next((f for f in self.filiais if f.numero == self.numero_filial), None)
+        if filial is not None:
+            filial.adicionar_livro(livro)
+            print("Livro cadastrado com sucesso!")
+        else:
+            print(f"Erro: Filial com número {numero_filial} não encontrada. Cadastro do livro cancelado.")
 
     def listarLivros (self):
         for livro in self.livro:
@@ -107,15 +98,7 @@ class Livraria():
                 storage.write(linha)
         print("Estoque atualizado com sucesso!")
         
-    def listarPorFilial(self, numero_filial):
-        self.numero_filial = int(input("Qual o número da filial?"))
-        filial = next((f for f in self.filiais if f.numero == self.numero_filial), None)
-        if filial is not None:
-            novo_livro = Livro(codigo, titulo, ano, area, editora, valor, estoque, filial.numero)
-            self.livros.append(novo_livro)
-            print("Livro cadastrado com sucesso!")
-        else:
-            print(f"Erro: Filial com número {numero_filial} não encontrada. Cadastro do livro cancelado.")
+    #def listarPorFilial(self, numero_filial):
 
         
     #FILIAL

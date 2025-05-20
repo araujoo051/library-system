@@ -1,10 +1,22 @@
 class Filial():
-    def __init__(self, numero, nome, endereco, contato, estoque = 0):
+    def __init__(self, numero, nome, endereco, contato, estoque):
         self.numero = numero
         self.nome = nome
         self.endereco = endereco
         self.contato = contato
         self.estoque = estoque
+        self.livros = []
+        
+    def adicionar_livro(self, livro):
+        self.livros.append(livro)
+        
+    def listar_livros(self):
+        if self.livros is not None:
+            print(f"Livros na Filial {self.numero}:")
+            for livro in self.livros:
+                print(livro)
+        else:
+            print(f"Nenhum livro cadastrado na Filial {self.numero}.")
         
     def __str__(self):
         return (f">>>>>Cod# {self.numero}\n"
