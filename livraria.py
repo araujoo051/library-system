@@ -169,7 +169,7 @@ class Livraria():
             valorTotal += livro.valor * livro.estoque
         print(f"Valor total em estoque na {filial.nome}: R$ {valorTotal}")
 
-    def carregarEstoque(self, arquivo="estoque.txt"):
+    def carregarEstoque(self, arquivo="estoque.txt", encoding="utf-8"):
         try:
             with open (arquivo, "r", encoding="utf-8") as storage:
                 for linha in storage:
@@ -197,11 +197,24 @@ class Livraria():
                     linha = f"{l.codigo},{l.titulo},{l.ano},{l.area},{l.editora},{l.valor},{l.estoque},{l.filial}\n"
                     storage.write(linha)
             print("Estoque atualizado com sucesso!")
-        
-    #def listarPorFilial(self, numero_filial):
 
-        
-    #FILIAL
+    def buscarLivrosCodigo(self):
+        if not self.filiais:
+            print("Nenhuma filial cadastrada.")
+            return
+        try:
+            codigo_busca = int(input("Digite o código do livro: "))
+            encontrado = False
+            for filial in self.filiais:
+                for livro in filial.livros:
+                    if livro.codigo == codigo_busca:
+                        print(livro)
+                        encontrado = True
+                        if not encontrado:
+                            print("Livro não encontrado!")
+        except ValueError:
+            print("Código inválido. Tente novamente.")
+
 class gerenciarFiliais():
     
     def __init__(self):
@@ -227,14 +240,14 @@ class gerenciarFiliais():
         for filial in self.filiais:
             print(filial)
             
-    def atualizarFilial(self, arquivo="filiais.txt"):
+    def atualizarFilial(self, arquivo="filiais.txt", encoding="utf-8"):
         with open(arquivo, "w") as storage:
             for l in self.filiais:
                 linha = f"{l.numero},{l.nome},{l.endereco},{l.contato},{l.estoque}\n"
                 storage.write(linha)
         print("Filiais atualizadas com sucesso!")
         
-    def carregarFiliais(self, arquivo="filiais.txt"):
+    def carregarFiliais(self, arquivo="filiais.txt", encoding="utf-8"):
         with open (arquivo, "r") as storage:
             for linha in storage:
                 dados = linha.strip().split(",")
@@ -245,12 +258,40 @@ class gerenciarFiliais():
                 estoque = int(dados[4])
                 self.filiais.append(Filial(numero, nome, endereco, contato, estoque))
         print("Você subiu as filiais com sucesso!")
-    
+
+    def listagemPorEstoque(self):
+        if not self.filiais:
+            print("Nenhuma filial cadastrada.")
+            return
+        print("Filiais disponíveis:")
+        for filial in self.filiais:
+            print(f"{filial.nome} - {filial.numero}")
+        try:
+            numero_filial = int(input("Digite o número da filial: "))
+        except ValueError:
+            print("Número da filial inválido.")
+            return
+        filial = next((f for f in self.filiais if f.numero == numero_filial), None)
+        if not filial:
+            print("Filial não encontrada.")
+            return
+        print(f"\nLivros na Filial {filial.numero}:")
+        valor_total_estoque = 0
+        for livro in filial.livros:
+            print(livro)
+            valor_total_estoque += livro.valor * livro.estoque
+        print(f"Valor total em estoque na filial {filial.nome}: R$ {valor_total_estoque:.2f}")
+
+    # MAIN
+
 if __name__ == "__main__":
     livraria = Livraria()
     gFilialis = gerenciarFiliais()
     livraria.filiais = gFilialis.filiais
     n = 1
+
+    # MENU
+
     while n != 0:
         print("1 - Cadastrar Livros\n"
               "2 - Listar Livros\n"
@@ -265,7 +306,8 @@ if __name__ == "__main__":
               "11 - Listar Filiais\n"
               "12 - Carregar Filiais\n"
               "13 - Atualizar Filiais\n"
-              "14 - Buscar livro por Filial\n"
+              "14 - Listar por Estoque\n"
+              "15 - Buscar livros por código\n"
               "0 - Sair")
         n = int(input("Escolha uma opção: "))
 
@@ -296,7 +338,9 @@ if __name__ == "__main__":
         elif n == 13:
             gFilialis.atualizarFilial()
         elif n == 14:
-            livraria.listarPorFilial()
+            gFilialis.listagemPorEstoque()
+        elif n ==15:
+            livraria.buscarLivrosCodigo()
         elif n == 0:
             print("Programa encerrado!")
             break
