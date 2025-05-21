@@ -24,10 +24,25 @@ class Livraria():
             print(f"Erro: Filial com número {numero_filial} não encontrada. Cadastro do livro cancelado.")
 
     def listarLivros (self):
+        if not self.filiais:
+            print("Nenhuma filial cadastrada.")
+            return
+        print("Filiais disponíveis:")
         for filial in self.filiais:
-            print(f"\nLivros na Filial {filial.numero}:")
-            for livro in filial.livros:
-                print(livro)
+            print(f"{filial.nome} - {filial.numero}")
+        try:
+            numero_filial = int(input("Digite o número da filial: "))
+        except ValueError:
+            print("Número da filial inválido.")
+            return
+        filial = next((f for f in self.filiais if f.numero == numero_filial), None)
+        if not filial:
+            print("Filial não encontrada.")
+            return
+        
+        print(f"\nLivros na Filial {filial.numero}:")
+        for livro in filial.livros:
+            print(livro)
 
     def buscarNome (self):
         if not self.filiais:
@@ -156,7 +171,7 @@ class Livraria():
 
     def carregarEstoque(self, arquivo="estoque.txt"):
         try:
-            with open (arquivo, "r") as storage:
+            with open (arquivo, "r", encoding="utf-8") as storage:
                 for linha in storage:
                     dados = linha.strip().split(",")
                     codigo = int(dados[0])
@@ -166,7 +181,7 @@ class Livraria():
                     editora = dados[4]
                     valor = float(dados[5])
                     estoque = int(dados[6])
-                    numero_filial = dados[7]
+                    numero_filial = int(dados[7])
                     filial = next((f for f in self.filiais if f.numero == numero_filial), None)
                     if filial is not None:
                         livro = Livro(codigo, titulo, ano, area, editora, valor, estoque, filial)
@@ -175,7 +190,7 @@ class Livraria():
         except FileNotFoundError:
             print("Arquivo não encontrado!")
 
-    def atualizarEstoque(self, arquivo="estoque.txt"):
+    def atualizarEstoque(self, arquivo="estoque.txt", encoding="utf-8"):
         with open(arquivo, "w") as storage:
             for filial in self.filiais:
                 for l in filial.livros:
@@ -211,8 +226,6 @@ class gerenciarFiliais():
     def listarFiliais(self):
         for filial in self.filiais:
             print(filial)
-            
-    #SUBIR AS FILIAIS AO TXT    
             
     def atualizarFilial(self, arquivo="filiais.txt"):
         with open(arquivo, "w") as storage:
