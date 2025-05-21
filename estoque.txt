@@ -1,6 +1,6 @@
-9853,Python para Zumbis,2015,Programação,Editora3,50.0,10,337
-2732,Python Fluente,2015,Programação,Editora2,80.0,5,521
-32356,Inteligência Artificial,2018,IA,Editora1,100.0,3,866
-4666,Aprendizado de Máquina,2019,IA,Editora1,120.0,2,227
-51094,Deep Learning,2020,IA,Editora1,150.0,1,157
-1278,Teste do Gabriel,2010,Programação,Gabriel Edit,29.9,14,552
+1237,TesteGabriel,2015,Prog,testeProg,50.0,100,>>>>>Cod# 101
+Nome: Filial Centro
+Endereco: Rua A
+Contato: 1234-5678
+Estoque: 100
+===============================
